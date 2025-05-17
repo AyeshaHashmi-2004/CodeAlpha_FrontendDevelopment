@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neumorphic Calculator</title>
+  <style>
+    body {
+      background-color: #d6a8f5;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #f5f5f5;
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+    }
+
+    .display {
+      height: 60px;
+      background: #e8f0f1;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      text-align: right;
+      font-size: 2rem;
+      padding: 10px 20px;
+      color: #333;
+      box-shadow: inset 5px 5px 10px #ccc, inset -5px -5px 10px #fff;
+      overflow-x: auto;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      grid-gap: 15px;
+    }
+
+    button {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      border: none;
+      background-color: #f5f5f5;
+      box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:active {
+      box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    }
+
+    .equal {
+      grid-column: span 2;
+      width: 145px;
+      background-color: #de9cc5;
+      border-radius: 30px;
+      color: #fff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">clr</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="append('%')">%</button>
+      <button onclick="append('/')">/</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('')"></button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">-</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="append('.')">.</button>
+      <button onclick="append('0')">0</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+
+    function append(value) {
+      if (display.innerText === "0" || display.innerText === "Error") {
+        display.innerText = value;
+      } else {
+        display.innerText += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.innerText = "0";
+    }
+
+    function deleteLast() {
+      if (display.innerText.length > 1) {
+        display.innerText = display.innerText.slice(0, -1);
+      } else {
+        display.innerText = "0";
+      }
+    }
+
+    function calculate() {
+      try {
+        display.innerText = eval(display.innerText);
+      } catch {
+        display.innerText = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
